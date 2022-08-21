@@ -4,12 +4,16 @@ import '../widgets/product_item.dart';
 import '../providers/products.dart';
 
 class ProductsGrid extends StatelessWidget {
-  const ProductsGrid({Key? key}) : super(key: key);
+  final bool showFavorites;
+
+  const ProductsGrid({required this.showFavorites, Key? key}) : super(key: key);
+  // const ProductsGrid(this.showFavorites);
 
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
-    final products = productsData.items;
+    final products =
+        showFavorites ? productsData.favoriteItems : productsData.items;
 
     return Scaffold(
       appBar: AppBar(title: const Text('My shop!')),
