@@ -7,7 +7,6 @@ class ProductsGrid extends StatelessWidget {
   final bool showFavorites;
 
   const ProductsGrid({required this.showFavorites, Key? key}) : super(key: key);
-  // const ProductsGrid(this.showFavorites);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,6 @@ class ProductsGrid extends StatelessWidget {
         showFavorites ? productsData.favoriteItems : productsData.items;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My shop!')),
       body: GridView.builder(
         padding: const EdgeInsets.all(10),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,8 +22,8 @@ class ProductsGrid extends StatelessWidget {
             childAspectRatio: 3 / 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
-        itemBuilder: (ctx, i) => ChangeNotifierProvider(
-          create: (c) => products[i],
+        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+          value: products[i],
           child: const ProductItem(),
         ),
         itemCount: products.length,
