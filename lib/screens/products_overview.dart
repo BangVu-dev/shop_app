@@ -7,7 +7,9 @@ import '../widgets/products_grid.dart';
 import '../widgets/app_drawer.dart';
 
 enum FilterOptions {
+  // ignore: constant_identifier_names
   Favorite,
+  // ignore: constant_identifier_names
   All,
 }
 

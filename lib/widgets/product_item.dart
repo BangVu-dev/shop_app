@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/cart.dart';
 import '../screens/product_detail.dart';
 import '../providers/product.dart';
@@ -12,6 +11,17 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+
+    var snackBar = SnackBar(
+      content: const Text('Added item to cart!'),
+      duration: const Duration(seconds: 2),
+      action: SnackBarAction(
+        label: 'UNDO',
+        onPressed: () {
+          cart.removeSingleItem(product.id);
+        },
+      ),
+    );
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -35,6 +45,8 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             onPressed: () {
               cart.addToCart(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
             icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).colorScheme.secondary,
